@@ -1,0 +1,59 @@
+#code {
+  background: #dbdada;
+  border: 1px solid #555;
+  border-radius: 8px;
+  width: 90%;
+  margin-left: 5%;
+  overflow: auto;
+  padding-left: 10px;
+  text-underline-position: below;
+  font-size: 17px;
+  font-family: monospace;
+}
+#code2 {
+  background: #dbdada;
+  border: 1px solid #555;
+  border-radius: 8px;
+  width: 90%;
+  margin-left: 5%;
+  overflow: auto;
+  padding-left: 10px;
+  text-underline-position: below;
+  font-size: 17px;
+  font-family: monospace;
+}
+.img {
+  height: 550px;
+
+  width: 250px;
+
+  object-fit: cover;
+}
+#pre {
+  background: #dbdada;
+  border: 1px solid #555;
+  border-radius: 8px;
+}
+#llamada {
+  text-align: center;
+  color: green;
+}
+#llamada2 {
+  margin-left: 5%;
+}
+#subtitulo {
+  text-align: center;
+}
+#code:hover {
+  transform: scale(1.1);
+}
+#basic-addon3 {
+  background-color: rgb(200, 195, 195);
+}
+.container2 {
+  width: 1200px;
+  height: 100px;
+  margin: 20px auto;
+  max-width: calc(100% - 20px);
+  padding: 10px;
+}

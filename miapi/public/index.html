@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="estilo.css" />
+    <link rel="icon" type="image/x-icon" href="img/navegador.png" />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+      crossorigin="anonymous"
+    ></script>
+    <!--Este link es para dar diseño a mi alert llamada enviar
+      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    -->
+
+    <!--Este link es para dar diseño a mi alert llamada enviar-->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <title>Documentación API REST</title>
+
+    <!-- Google tag (gtag.js) -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-H0PKX0T9YP"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+
+      gtag("config", "G-H0PKX0T9YP");
+    </script>
+  </head>
+  <body>
+    <!--style="background-color: rgb(231, 231, 231)"-->
+    <h1 style="text-align: center">Productos</h1>
+    <br />
+    <ul class="list-group container-lg">
+      <li class="list-group-item">
+        <div class="container">
+          <div class="row">
+            <div class="col"></div>
+            <div class="col-11">
+              <br />
+              <h3>Agregar un nuevo Producto</h3>
+              <br />
+              <br />
+              <ul
+                class="list-group list-group-horizontal"
+                style="margin: 0px 10px; text-align: center"
+              >
+                <div class="col">
+                  <form id="añadir" method="post" class="row g-3">
+                    <div class="row">
+                      <div class="col-md-12">
+                        <input
+                          type="number"
+                          id="id"
+                          placeholder="Id"
+                          class="form-control"
+                        />
+                      </div>
+                      <div class="col-md-12 mt-2">
+                        <input
+                          type="text"
+                          id="nombre"
+                          placeholder="Nombre"
+                          class="form-control"
+                        />
+                      </div>
+                      <div class="col-md-12 mt-2">
+                        <input
+                          type="text"
+                          id="img"
+                          placeholder="Img"
+                          class="form-control"
+                        />
+                      </div>
+                      <div class="col-md-12 mt-2">
+                        <input
+                          type="number"
+                          id="precio"
+                          placeholder="Precio"
+                          class="form-control"
+                        />
+                      </div>
+                      <div class="col-md-12 mt-2">
+                        <input
+                          type="text"
+                          id="fechaCracion"
+                          placeholder="Fecha de Cración"
+                          class="form-control"
+                        />
+                      </div>
+                      <div class="row justify-content-start text-center mt-5">
+                        <div class="col-12">
+                          <input
+                            type="submit"
+                            value="Añadir"
+                            class="btn btn-success mb-3"
+                            onclick="enviar1()"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </ul>
+              <br />
+            </div>
+          </div>
+        </div>
+        <br /><br />
+      </li>
+    </ul>
+    <br /><br />
+    <div class="container text-center">
+      <div class="row align-items-start">
+        <main role="main" class="container">
+          <div class="row">
+            <div class="col-12">
+              <div class="table-responsive">
+                <table
+                  class="table table-bordered table table-success table-striped"
+                >
+                  <!--class="table table-success table-striped"-->
+                  <thead>
+                    <tr>
+                      <th>Id</th>
+                      <th>Nombre</th>
+                      <th>Img</th>
+                      <th>Precio</th>
+                      <th>FechaCreacion</th>
+                      <th>Actualizar</th>
+                      <th>Eliminar</th>
+                    </tr>
+                  </thead>
+                  <tbody id="data"></tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </main>
+      </div>
+    </div>
+    <br />
+
+    <ul class="list-group container-lg">
+      <li class="list-group-item">
+        <div class="container">
+          <div class="row">
+            <div class="col"></div>
+            <div class="col-11">
+              <br />
+              <h3>Busqueda global</h3>
+              <br />
+              <br />
+              <ul
+                class="list-group list-group-horizontal"
+                style="margin: 0px 10px; text-align: center"
+              >
+                <pre
+                  id="pre"
+                ><br> https://mi-api-rest.fly.dev/api/buscar?id=<strong style="color: red;">{id}</strong>&nombre=<strong style="color: red;">{nombre}</strong>&img=<strong style="color: red;">{img}</strong>&precio=<strong style="color: red;">{precio}</strong>&fechaCracion=<strong style="color: red;">{fechaCracion}</strong>  
+                  </pre>
+              </ul>
+              <br />
+
+              <div
+                class="accordion"
+                id="accordionExample"
+                style="margin: 0px 10px; text-align: center"
+              >
+                <div class="accordion-item">
+                  <h2 class="accordion-header" id="headingTwo">
+                    <button
+                      class="accordion-button collapsed"
+                      style="background-color: rgb(198, 224, 255)"
+                      type="button"
+                      data-bs-toggle="collapse"
+                      data-bs-target="#collapseTwo"
+                      aria-expanded="false"
+                      aria-controls="collapseTwo"
+                    >
+                      Ejemplo
+                    </button>
+                  </h2>
+                  <div
+                    id="collapseTwo"
+                    class="accordion-collapse collapse"
+                    aria-labelledby="headingTwo"
+                    data-bs-parent="#accordionExample"
+                  >
+                    <div class="accordion-body">
+                      <div
+                        class="alert alert-light"
+                        role="alert"
+                        style="
+                          font-family: monospace;
+                          font-size: 15px;
+                          color: black;
+                          background-color: rgb(231, 226, 226);
+                        "
+                      >
+                        <pre class="code2"><strong
+                          >https://mi-api-rest.fly.dev/api/buscar?id=1&nombre=Agendas&img=https://api.com&precio=4355&fechaCracion=15-02-2023</strong
+                        ></pre>
+                        <br />
+                        Sujerencias: <br />Si deseas busar un producto es
+                        necesario ver la tabla de los productos y insertar los
+                        mismos datos a la hora de buscar un producto.
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <br /><br />
+      </li>
+
+      <li class="list-group-item">
+        <div class="container">
+          <div class="row">
+            <div class="col"></div>
+            <div class="col-11">
+              <br />
+              <h3>Busqueda por ID</h3>
+              <br />
+              <br />
+              <ul
+                class="list-group list-group-horizontal"
+                style="margin: 0px 10px; text-align: center"
+              >
+                <pre
+                  id="pre"
+                ><br> https://mi-api-rest.fly.dev/api/id-buscar?id=<strong style="color: red;">{id}</strong>  
+                  </pre>
+              </ul>
+              <br />
+              <h3>Busqueda por nombre</h3>
+              <br />
+              <br />
+              <ul
+                class="list-group list-group-horizontal"
+                style="margin: 0px 10px; text-align: center"
+              >
+                <pre
+                  id="pre"
+                ><br> https://mi-api-rest.fly.dev/api/nombre-buscar?nombre=<strong style="color: red;">{nombre}</strong>  
+                  </pre>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <br /><br />
+      </li>
+
+      <li class="list-group-item">
+        <div class="container">
+          <div class="row">
+            <div class="col"></div>
+            <div class="col-11">
+              <br />
+              <h3>Consumir/GET</h3>
+              <br />
+              <br />
+              <ul
+                class="list-group list-group-horizontal"
+                style="margin: 0px 10px; text-align: center"
+              >
+                <pre id="pre"><br> https://mi-api-rest.fly.dev/api  
+                  </pre>
+              </ul>
+              <br />
+
+              <div
+                class="accordion"
+                id="accordionExample"
+                style="margin: 0px 10px; text-align: center"
+              >
+                <div class="accordion-item">
+                  <h2 class="accordion-header" id="headingTwo">
+                    <button
+                      class="accordion-button collapsed"
+                      style="background-color: rgb(198, 224, 255)"
+                      type="button"
+                      data-bs-toggle="collapse"
+                      data-bs-target="#collapseTwo1"
+                      aria-expanded="false"
+                      aria-controls="collapseTwo"
+                    >
+                      Sujerencias:
+                    </button>
+                  </h2>
+                  <div
+                    id="collapseTwo1"
+                    class="accordion-collapse collapse"
+                    aria-labelledby="headingTwo"
+                    data-bs-parent="#accordionExample"
+                  >
+                    <div class="accordion-body">
+                      <div
+                        class="alert alert-light"
+                        role="alert"
+                        style="
+                          font-family: monospace;
+                          font-size: 15px;
+                          color: black;
+                          background-color: rgb(231, 226, 226);
+                        "
+                      >
+                        Con este link atraes todos los productos en forma de
+                        json
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <br /><br />
+      </li>
+
+      <li class="list-group-item">
+        <div class="container">
+          <div class="row">
+            <div class="col"></div>
+            <div class="col-11">
+              <br />
+              <h3>Insertar/POST</h3>
+              <br />
+              <br />
+              <ul
+                class="list-group list-group-horizontal"
+                style="margin: 0px 10px; text-align: center"
+              >
+                <pre id="pre"><br> https://mi-api-rest.fly.dev/api/nuevo  
+                  </pre>
+              </ul>
+              <br />
+
+              <div class="accordion" id="accordionExample">
+                <div class="accordion-item">
+                  <h2 class="accordion-header" id="headingTwo">
+                    <button
+                      class="accordion-button collapsed"
+                      style="background-color: rgb(198, 224, 255)"
+                      type="button"
+                      data-bs-toggle="collapse"
+                      data-bs-target="#collapseTwo2"
+                      aria-expanded="false"
+                      aria-controls="collapseTwo"
+                    >
+                      Sujerencias:
+                    </button>
+                  </h2>
+                  <div
+                    id="collapseTwo2"
+                    class="accordion-collapse collapse"
+                    aria-labelledby="headingTwo"
+                    data-bs-parent="#accordionExample"
+                  >
+                    <div class="accordion-body">
+                      <div
+                        class="alert alert-light"
+                        role="alert"
+                        style="
+                          font-family: monospace;
+                          font-size: 15px;
+                          color: black;
+                          background-color: rgb(231, 226, 226);
+                        "
+                      >
+                        <strong>headers: </strong><br />
+                        {<br />
+                        Content-Type: application/json<br />
+                        }<br /><br />
+                        <strong>Body: </strong><br />
+                        { <br />
+                        "id":1,<br />
+                        "nombre":"Ejmplo",<br />
+                        "img":"url image",<br />
+                        "precio":1000,<br />
+                        "fechaCracion":"Dia-Mes-Año"<br />
+                        }
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <br /><br />
+      </li>
+      <li class="list-group-item">
+        <div class="container">
+          <div class="row">
+            <div class="col"></div>
+            <div class="col-11">
+              <br />
+              <h3>Actualizar/PUT</h3>
+              <br />
+              <br />
+              <ul
+                class="list-group list-group-horizontal"
+                style="margin: 0px 10px; text-align: center"
+              >
+                <pre
+                  id="pre"
+                ><br> https://mi-api-rest.fly.dev/api/actualizar/<strong style="color: red;">{id}</strong>  
+                  </pre>
+              </ul>
+              <br />
+
+              <div class="accordion" id="accordionExample">
+                <div class="accordion-item">
+                  <h2 class="accordion-header" id="headingTwo">
+                    <button
+                      class="accordion-button collapsed"
+                      style="background-color: rgb(198, 224, 255)"
+                      type="button"
+                      data-bs-toggle="collapse"
+                      data-bs-target="#collapseTwo3"
+                      aria-expanded="false"
+                      aria-controls="collapseTwo"
+                    >
+                      Sujerencias:
+                    </button>
+                  </h2>
+                  <div
+                    id="collapseTwo3"
+                    class="accordion-collapse collapse"
+                    aria-labelledby="headingTwo"
+                    data-bs-parent="#accordionExample"
+                  >
+                    <div class="accordion-body">
+                      <div
+                        class="alert alert-light"
+                        role="alert"
+                        style="
+                          font-family: monospace;
+                          font-size: 15px;
+                          color: black;
+                          background-color: rgb(231, 226, 226);
+                        "
+                      >
+                        <strong>headers: </strong><br />
+                        {<br />
+                        Content-Type: application/json<br />
+                        }<br /><br />
+                        <strong>Body: </strong><br />
+                        {<br />
+                        "nombre":"Ejemplo",<br />
+                        "img":"url image",<br />
+                        "precio":1000,<br />
+                        "fechaCracion":"Dia-Mes-Año"<br />
+                        }
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <br /><br />
+      </li>
+
+      <li class="list-group-item">
+        <div class="container">
+          <div class="row">
+            <div class="col"></div>
+            <div class="col-11">
+              <br />
+              <h3>Eliminar/DELETE</h3>
+              <br />
+              <br />
+              <ul
+                class="list-group list-group-horizontal"
+                style="margin: 0px 10px; text-align: center"
+              >
+                <pre
+                  id="pre"
+                ><br> https://mi-api-rest.fly.dev/api/eliminar/<strong style="color: red;">{id}</strong>  
+                  </pre>
+              </ul>
+              <br />
+            </div>
+          </div>
+        </div>
+        <br /><br />
+      </li>
+    </ul>
+
+    <br />
+    <div>
+      <h3 id="llamada">
+        Cómo hacer una llamada a la API en una aplicación de flutter
+      </h3>
+    </div>
+    <br />
+    <h5 id="llamada2">
+      Lo primero que debemos hacer es crear nuestro nuevo proyecto de flutter,
+      una vez que se generen los archivos referentes a estas, debemos incluir
+      una dependencia, para ello, nos iremos a pubspec.yaml e incluir lo
+      siguiente:
+    </h5>
+    <br />
+    <pre id="code">
+      
+      http: ^0.13.5
+    </pre>
+    <br />
+    <h5 id="llamada2">
+      Seguidamente nos iremos a nuestro main principal, en dicho archivo
+      podremos exportar la dependencia que acabamos de incluir a nuestro
+      proyecto:
+    </h5>
+    <br />
+    <pre id="code">
+      
+      import 'package:http/http.dart' as http;    
+    </pre>
+    <br />
+    <h5 id="llamada2">
+      Ahora lo que nos hace falta es incluir el código que nos permitirá poder
+      consumir esta Api-rest, para ello simplemente vamos a incluir los
+      siguientes archivos que se encuentran en git-hub:
+    </h5>
+    <br />
+    <pre id="code">
+      
+      https://github.com/CanulTamayAlex03/consumo_api-rest    
+    </pre>
+    <br />
+    <br />
+    <div>
+      <h3 id="llamada">Cómo hacer un CRUD en una aplicación de flutter</h3>
+    </div>
+    <br />
+    <h5 id="llamada2">Clona el siguiente repositorio en git-hub:</h5>
+    <br />
+    <pre id="code">
+      
+      https://github.com/YairHernandezPech/CrudFutterApiRest    
+    </pre>
+    <br />
+    <h5 id="llamada2">Página principal</h5>
+    <br />
+    <ul
+      class="list-group list-group-horizontal"
+      style="margin: 0px 10px; text-align: center"
+    >
+      <div class="col">
+        <img src="img/c6c213ae-53a7-4db9-bbe2-ad0bb0185c1f.jfif" class="img" />
+      </div>
+    </ul>
+    <br />
+    <h5 id="llamada2">Formulario</h5>
+    <br />
+    <ul
+      class="list-group list-group-horizontal"
+      style="margin: 0px 10px; text-align: center"
+    >
+      <div class="col">
+        <img src="img/5e8b92cb-5cb5-4639-817e-f41a3eca54f3.jfif" class="img" />
+      </div>
+    </ul>
+    <!-- Modal Eliminar -->
+    <div
+      class="modal fade"
+      id="ModalEliminar"
+      tabindex="-1"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">Eliminar</h1>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <br />
+            <form id="eliminar" action="/eliminar/" class="row g-3">
+              <div class="row">
+                <div class="col-md-12">
+                  <input
+                    type="number"
+                    name="id"
+                    id="id"
+                    placeholder="Id"
+                    class="form-control"
+                  />
+                </div>
+                <div class="row justify-content-start text-center mt-5">
+                  <div class="col-12">
+                    <input
+                      type="button"
+                      value="Eliminar"
+                      onclick="Eliminar()"
+                      onchange="enviar3()"
+                      class="btn btn-danger mb-3"
+                    />
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal Actualizar -->
+    <div
+      class="modal fade"
+      id="ModalActualizar"
+      tabindex="-1"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">Actualizar</h1>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <br />
+            <form id="actualizar" action="/actualizar/" class="row g-3">
+              <div class="row">
+                <div class="col-md-12">
+                  <input
+                    type="number"
+                    name="id"
+                    id="id"
+                    placeholder="Id"
+                    class="form-control"
+                  />
+                </div>
+                <div class="col-md-12 mt-2">
+                  <input
+                    type="text"
+                    name="nombre"
+                    id="nombre"
+                    placeholder="Nombre"
+                    class="form-control"
+                  />
+                </div>
+                <div class="col-md-12 mt-2">
+                  <input
+                    type="text"
+                    name="img"
+                    id="img"
+                    placeholder="Img"
+                    class="form-control"
+                  />
+                </div>
+                <div class="col-md-12 mt-2">
+                  <input
+                    type="number"
+                    name="precio"
+                    id="precio"
+                    placeholder="Precio"
+                    class="form-control"
+                  />
+                </div>
+                <div class="col-md-12 mt-2">
+                  <input
+                    type="text"
+                    name="fechaCracion"
+                    id="fechaCracion"
+                    placeholder="Fecha de modificación"
+                    class="form-control"
+                  />
+                </div>
+                <div class="row justify-content-start text-center mt-5">
+                  <div class="col-12">
+                    <input
+                      type="button"
+                      value="Actualizar"
+                      onclick="Actualizar()"
+                      onchange="enviar2()"
+                      class="btn btn-warning mb-3"
+                    />
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <br />
+    <br />
+  </body>
+  <script type="text/javascript" src="index.js"></script>
+  <script>
+    /*Enviar*/
+    function enviar1() {
+      //swal("API REST", "Producto Añadido", "success");
+      Swal.fire("API REST!", "Producto Añadido.", "success");
+    }
+  </script>
+</html>
