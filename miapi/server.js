@@ -12,10 +12,10 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 const dbOptions = {
-  host: "us-east.connect.psdb.cloud",
+  host: "aws.connect.psdb.cloud",
   //port: 3307,
-  user: "9rgk2h9hq8jds7g544y4",
-  password: "pscale_pw_mxZjHKKQWJmFRGCNsJbtNG4UHuenkQc1OCQPTSOV6WK",
+  user: "u3z7u9e8cywizj6oprkh",
+  password: "pscale_pw_svVItih7QnozcATmiGRLnN3OYX6FKtCyfOgJAcGoekB",
   database: "servicio",
   ssl: {},
 };
